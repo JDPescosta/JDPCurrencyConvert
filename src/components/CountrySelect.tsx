@@ -4,8 +4,13 @@ import { debounce } from 'lodash';
 import useCountries from '../hooks/useCountries';
 
 
-const CountrySelect: React.FC<{ placeholder: string; countryName: string | undefined; setCountryName: (name: string) => void }> 
-  = ({ placeholder, countryName, setCountryName }) => {
+interface CountrySelectProps {
+  placeholder: string;
+  countryName: string | undefined;
+  setCountryName: (name: string) => void;
+}
+
+const CountrySelect = ({ placeholder, countryName, setCountryName }: CountrySelectProps) => {
 
   const { countries, fetchCountries } = useCountries();
 
