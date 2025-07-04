@@ -2,6 +2,8 @@
 
 A small TypeScript currency conversion application using React. Enjoy! :)
 
+You can find it hosted [here!](https://jdpescosta.github.io/JDPCurrencyConvert/)
+
 ## Development
 
 ```bash
