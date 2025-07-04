@@ -6,9 +6,9 @@ import CurrencyInput from "./components/CurrencyInput";
 import ConversionDisplay from "./components/ConversionDisplay";
 
 import { type Country } from "./types/Country.type";
-import { Typography } from "antd";
+import { Typography, Flex } from "antd";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function App() {
   const [sourceCountry, setSourceCountry] = useState<Country>();
@@ -16,10 +16,8 @@ function App() {
   const [currentAmount, setCurrentAmount] = useState<number>(0);
 
   return (
-    <>
-      <div>
-        <Title>Currency Converter</Title>
-      </div>
+    <Flex vertical align="center" gap={"small"}>
+      <Title>Currency Converter</Title>
 
       <ConversionDisplay
         sourceCountry={sourceCountry}
@@ -27,22 +25,22 @@ function App() {
         currentAmount={currentAmount}
       />
 
-      <div>
-        <CountrySelect
-          placeholder="Select source country..."
-          currentCountry={sourceCountry}
-          setCurrentCountry={setSourceCountry}
-        />
-        <CountrySelect
-          placeholder="Select destination country..."
-          currentCountry={destinationCountry}
-          setCurrentCountry={setDestinationCountry}
-        />
-      </div>
-      <div>
+      <CountrySelect
+        placeholder="Select source country..."
+        currentCountry={sourceCountry}
+        setCurrentCountry={setSourceCountry}
+      />
+      <CountrySelect
+        placeholder="Select destination country..."
+        currentCountry={destinationCountry}
+        setCurrentCountry={setDestinationCountry}
+      />
+
+      <Flex align="center" gap={"small"}>
+        <Text>Amount to convert: </Text>
         <CurrencyInput amount={currentAmount} setAmount={setCurrentAmount} />
-      </div>
-    </>
+      </Flex>
+    </Flex>
   );
 }
 

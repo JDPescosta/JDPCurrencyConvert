@@ -47,7 +47,7 @@ const ConversionDisplay = ({
   }, [sourceCountry, destinationCountry, currentAmount]);
 
   return (
-    <Space direction="vertical" style={{ height: "11rem" }}>
+    <Space direction="vertical" align="center" style={{ height: "11rem" }}>
       <Paragraph>
         {sourceCountry
           ? `${formattedSourceAmount} ${sourceCountry?.code}`
