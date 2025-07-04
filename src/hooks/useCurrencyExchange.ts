@@ -43,7 +43,12 @@ const useCurrencyExchange = (
     }
   }, [amount, exchangeRate, destinationCurrency?.symbol]);
 
-  return { exchangeRate, fetchCurrencyExchangeRate, formattedConvertedAmount };
+  return {
+    exchangeRate,
+    fetchCurrencyExchangeRate,
+    formattedConvertedAmount,
+    loading,
+  };
 };
 
 export default useCurrencyExchange;
