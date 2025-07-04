@@ -27,6 +27,7 @@ const useCountries = () => {
         );
         setCountries(data);
       } catch (error) {
+        // would be better to provide feedback to the user about the error i.e. "No country found with that name"
         if (axios.isAxiosError(error)) {
           console.error(error.response?.data);
         } else {
