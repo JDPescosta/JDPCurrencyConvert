@@ -20,7 +20,9 @@ const useCountries = () => {
   const fetchCountries = async (name: string) => {
     try {
       const { data } = await axios.get(
-        `https://restcountries.com/v3.1/name/${name}?fields=name,currencies`
+        `${
+          import.meta.env.VITE_COUNTRY_BASE_URL
+        }/name/${name}?fields=name,currencies`
       );
       setCountries(data);
     } catch (error) {
