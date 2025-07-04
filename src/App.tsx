@@ -7,6 +7,9 @@ import useCurrencyExchange from './hooks/useCurrencyExchange'
 import { formatMoney } from 'accounting-js';
 
 import { type Country } from './types/Country.type';
+import { Typography } from 'antd';
+
+const { Title, Text } = Typography;
 
 function App() {
   const [sourceCountry, setSourceCountry] = useState<Country>();
@@ -32,21 +35,21 @@ function App() {
   return (
     <>
     <div>
-      <h1>Currency Converter</h1>
+      <Title>Currency Converter</Title>
     </div>
     <div>
-      <h2>
+      <Text>
       {formattedSourceAmount} {sourceCountry?.code}
-      </h2> 
-      <h2>
+      </Text> 
+      <Text>
         =
-      </h2>
-      <h2>
+      </Text>
+      <Text>
         {formattedConvertedAmount} {destinationCountry?.code}
-      </h2>
-      <h2>
+      </Text>
+      <Text>
         Exchange rate: {exchangeRate}
-      </h2>
+      </Text>
     </div>
       <div>
         <CountrySelect placeholder="Select source country..." currentCountry={sourceCountry} setCurrentCountry={setSourceCountry}  />
