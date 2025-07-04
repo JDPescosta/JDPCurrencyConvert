@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-type Country = {
+type CountryApiResponse = {
   name: {
     common: string;
   };
@@ -14,7 +14,7 @@ type Country = {
 };
 
 const useCountries = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [countries, setCountries] = useState<CountryApiResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchCountries = async (name: string) => {

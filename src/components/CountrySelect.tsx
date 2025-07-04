@@ -2,22 +2,22 @@ import React, { useMemo } from 'react';
 import { Select } from 'antd';
 import { debounce } from 'lodash';
 import useCountries from '../hooks/useCountries';
-
+import { type Country } from '../types/Country.type';
 
 interface CountrySelectProps {
   placeholder: string;
-  countryName: string | undefined;
-  setCountryName: (name: string) => void;
+  currentCountry?: Country;
+  setCurrentCountry: (country: Country) => void;
 }
 
-const CountrySelect = ({ placeholder, countryName, setCountryName }: CountrySelectProps) => {
+const CountrySelect = ({ placeholder, currentCountry, setCurrentCountry }: CountrySelectProps) => {
 
   const { countries, fetchCountries } = useCountries();
 
   const options = useMemo(() => {
     const formattedCountries = countries.map((country) => ({
       label: country.name.common,
-      value: Object.keys(country.currencies)[0],
+      value: country.name.common,
     }))
 
     return formattedCountries
@@ -29,7 +29,17 @@ const CountrySelect = ({ placeholder, countryName, setCountryName }: CountrySele
   }, 300);
 
   const handleChange = (newValue: string) => {
-    setCountryName(newValue);
+    const country = countries.find(({ name }) => name.common === newValue);
+
+    if (country) {
+      // Assume that the first currency is the main currency of the country (for now...)
+      setCurrentCountry(
+        {
+          name: country.name.common, 
+          code: Object.keys(country.currencies)[0],
+          symbol: Object.values(country.currencies)[0].symbol
+        });
+    }
   };
 
   
@@ -37,7 +47,7 @@ const CountrySelect = ({ placeholder, countryName, setCountryName }: CountrySele
     <Select
       style={{ width: '30rem'}}
       showSearch
-      value={countryName}
+      value={currentCountry?.name} 
       placeholder={placeholder}
       defaultActiveFirstOption={false}
       suffixIcon={null}

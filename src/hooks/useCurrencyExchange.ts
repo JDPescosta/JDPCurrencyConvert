@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
 import axios from "axios";
 import { formatMoney } from "accounting-js";
+import { type Country } from "../types/Country.type";
 
 const useCurrencyExchange = (
-  sourceCurrency?: string,
-  destinationCurrency?: string,
+  sourceCurrency?: Country,
+  destinationCurrency?: Country,
   amount?: number
 ) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const useCurrencyExchange = (
       } = await axios.get(
         `${import.meta.env.VITE_EXCHANGE_BASE_URL}/${
           import.meta.env.VITE_EXCHANGE_API_KEY
-        }/pair/${sourceCurrency}/${destinationCurrency}`
+        }/pair/${sourceCurrency?.code}/${destinationCurrency?.code}`
       );
       setExchangeRate(conversion_rate);
     } catch (error) {
@@ -32,15 +33,15 @@ const useCurrencyExchange = (
   };
 
   const formattedConvertedAmount = useMemo(() => {
-    if (amount && exchangeRate && destinationCurrency) {
+    if (amount && exchangeRate && destinationCurrency?.symbol) {
       return formatMoney(amount * exchangeRate, {
-        symbol: destinationCurrency,
+        symbol: destinationCurrency?.symbol,
         precision: 2,
       });
     } else {
       return null;
     }
-  }, [amount, exchangeRate, destinationCurrency]);
+  }, [amount, exchangeRate, destinationCurrency?.symbol]);
 
   return { exchangeRate, fetchCurrencyExchangeRate, formattedConvertedAmount };
 };
