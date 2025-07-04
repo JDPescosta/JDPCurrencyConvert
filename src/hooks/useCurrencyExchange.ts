@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import axios from "axios";
 import { formatMoney } from "accounting-js";
 import { type Country } from "../types/Country.type";
@@ -11,7 +11,7 @@ const useCurrencyExchange = (
   const [loading, setLoading] = useState<boolean>(false);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
 
-  const fetchCurrencyExchangeRate = async () => {
+  const fetchCurrencyExchangeRate = useCallback(async () => {
     try {
       const {
         data: { conversion_rate },
@@ -30,7 +30,7 @@ const useCurrencyExchange = (
     } finally {
       setLoading(false);
     }
-  };
+  }, [sourceCurrency, destinationCurrency, setExchangeRate, setLoading]);
 
   const formattedConvertedAmount = useMemo(() => {
     if (amount && exchangeRate && destinationCurrency?.symbol) {

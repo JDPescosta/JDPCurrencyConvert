@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { Spin, Typography, Space } from "antd";
+import { Typography, Space } from "antd";
 import useCurrencyExchange from "../hooks/useCurrencyExchange";
 import { formatMoney } from "accounting-js";
 import { type Country } from "../types/Country.type";
@@ -45,6 +45,7 @@ const ConversionDisplay = ({
       fetchCurrencyExchangeRate();
     }
   }, [sourceCountry, destinationCountry, currentAmount]);
+
   return (
     <Space direction="vertical" style={{ height: "11rem" }}>
       <Paragraph>
